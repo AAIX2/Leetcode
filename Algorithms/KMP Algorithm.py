@@ -35,4 +35,5 @@ def KMP(text,pattern):
     return ans
 
 print(KMP(text,pat))
-
+# T.C. : O(n+m)
+# S.C. : O(m)
