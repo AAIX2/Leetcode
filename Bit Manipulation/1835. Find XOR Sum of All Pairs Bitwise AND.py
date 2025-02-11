@@ -1,4 +1,4 @@
-# Approach (using observation)
+# Approach (using observation by changing the brackets)
 # T.C : O(n+m)
 # S.C : O(1)
 
