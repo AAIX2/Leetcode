@@ -14,24 +14,24 @@ class Solution:
 
         visited[i][j] = True
 
-        # Explore
-        minCost = float('inf')
+        # Explore all directions
+        min_cost = float('inf')
         for dir_i in range(4):
             i_ = i + self.dir[dir_i][0]
             j_ = j + self.dir[dir_i][1]
 
             if 0 <= i_ < self.m and 0 <= j_ < self.n and not visited[i_][j_]:
-                nextCost = cost + (1 if grid[i][j] - 1 != dir_i else 0)
-                minCost = min(minCost, self.dfs(i_, j_, grid, visited, nextCost))
+                next_cost = cost + (1 if (grid[i][j] - 1 != dir_i) else 0)
+                min_cost = min(min_cost, self.dfs(i_, j_, grid, visited, next_cost))
 
         visited[i][j] = False
-        return minCost
+        return min_cost
 
     def minCost(self, grid):
         self.m = len(grid)
         self.n = len(grid[0])
 
-        visited = [[False for _ in range(self.n)] for _ in range(self.m)]
+        visited = [[False] * self.n for _ in range(self.m)]
 
         return self.dfs(0, 0, grid, visited, 0)  # Explore all paths by backtracking
 
@@ -65,24 +65,22 @@ class Solution:
             cost,i,j = heapq.heappop(heap)
             if i == n-1 and j == m-1:
                 return cost
+            if minCost[i][j]<cost:
+                continue
             intial_dir = getDir(i,j)
             for d in range(4):
                 new_x,new_y = i+dir_x[d],j+dir_y[d]
                 if new_x>=0 and new_x<n and new_y>=0 and new_y<m:
-                    
-                    if (new_x!=intial_dir[0] or new_y!=intial_dir[1]) and minCost[new_x][new_y]>1+cost:
-                        minCost[new_x][new_y] = 1+cost
-                        heapq.heappush(heap,[cost+1,new_x,new_y])
-                    elif new_x == intial_dir[0] and new_y == intial_dir[1] and minCost[new_x][new_y]>cost:
-                        minCost[new_x][new_y] = cost
-                        heapq.heappush(heap,[cost,new_x,new_y])
-        
-            
+                    new_cost = cost+(1 if new_x!=intial_dir[0] or new_y!=intial_dir[1] else 0)
+                    if minCost[new_x][new_y]>new_cost:
+                        minCost[new_x][new_y] = new_cost
+                        heapq.heappush(heap,[new_cost,new_x,new_y])
 
-# Approach-3 (0-1 BFS) 
+
+# Approach-3 (0-1 BFS)
 # T.C : O((m*n))
-# S.C : O(m*n)
-
+# S.C : O(m*n)       
+            
 class Solution:
     def minCost(self, grid: List[List[int]]) -> int:
         n = len(grid)
@@ -121,5 +119,4 @@ class Solution:
         
             
                     
-            
                     

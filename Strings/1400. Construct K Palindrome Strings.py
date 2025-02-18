@@ -1,6 +1,6 @@
-# Approach - (Using the fact that odd frequency characters count control the palindromes count)
+# Approach-1 (Using Hashmap)
 # T.C : O(n)
-# S.C : O(26) ~ O(1)
+# S.C : O(26)
 
 class Solution:
     def canConstruct(self, s: str, k: int) -> bool:
